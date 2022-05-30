@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration name="easyoops" packages="com.easyoops">
+    <Properties>
+        <Property name="bizPath">
+            C:\projects\logs\biz\SERVER.BIZ.log
+        </Property>
+        <Property name="httpPath">
+            C:\projects\logs\http\SERVER.HTTP.log
+        </Property>
+        <Property name="errPath">
+            C:\projects\logs\error\SERVER.ERR.log
+        </Property>
+        <Property name="pattern">.%d{yyyyMMddHH}</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="STDOUT" target="SYSTEM_OUT" ignoreExceptions="false">
+            <PatternLayout>
+                <Pattern>%d{yyyy/MM/dd HH:mm:ss.SSS} [%X{logTrxId}] [%-5p] [%c] %m%n</Pattern>
+            </PatternLayout>
+        </Console>
+
+        <RollingFile name="BIZ_LOG"
+                     fileName="${bizPath}"
+                     filePattern="${bizPath}${pattern}"
+                     immediateFlush="true" append="true">
+            <PatternLayout>
+                <Pattern>SERVER§%d{yyyy-MM-dd_HH:mm:ss.SSS}§%-5p§BIZ§%m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingFile>
+        <RollingFile name="HTTP_LOG"
+                     fileName="${httpPath}"
+                     filePattern="${httpPath}${pattern}"
+                     immediateFlush="true" append="true">
+            <PatternLayout>
+                <Pattern>SERVER§%d{yyyy-MM-dd_HH:mm:ss.SSS}§%-5p§HTTP§%m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingFile>
+        <RollingFile name="ERR_LOG"
+                     fileName="${errPath}"
+                     filePattern="${errPath}${pattern}"
+                     immediateFlush="true" append="true">
+            <PatternLayout>
+                <Pattern>SERVER§%d{yyyy-MM-dd_HH:mm:ss.SSS}§%-5p§ERR§%m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingFile>
+        <Async name="ASYNC_BIZ_LOG" bufferSize="1024">
+            <AppenderRef ref="BIZ_LOG"/>
+        </Async>
+        <Async name="ASYNC_HTTP_LOG" bufferSize="1024">
+            <AppenderRef ref="HTTP_LOG"/>
+        </Async>
+        <Async name="ASYNC_ERR_LOG" bufferSize="1024">
+            <AppenderRef ref="ERR_LOG"/>
+        </Async>
+
+    </Appenders>
+
+    <Loggers>
+        <Logger name="BIZ_LOGGER" level="DEBUG" additivity="true">
+            <AppenderRef ref="ASYNC_BIZ_LOG"/>
+        </Logger>
+        <Logger name="HTTP_LOGGER" level="DEBUG" additivity="true">
+            <AppenderRef ref="ASYNC_HTTP_LOG"/>
+        </Logger>
+        <Logger name="ERR_LOGGER" level="ERROR" additivity="true">
+            <AppenderRef ref="ASYNC_ERR_LOG"/>
+        </Logger>
+        <Root level="DEBUG">
+            <AppenderRef ref="STDOUT"/>
+        </Root>
+    </Loggers>
+
+</Configuration>

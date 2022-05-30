@@ -1,0 +1,2 @@
+insert into sample (title, contents, createId, createDt, updateId, updateDt) values ('test1', 'test1', 'test', CURRENT_TIMESTAMP(), 'test', CURRENT_TIMESTAMP());
+insert into sample (title, contents, createId, createDt, updateId, updateDt) values ('test2', 'test2', 'test', CURRENT_TIMESTAMP(), 'test', CURRENT_TIMESTAMP());

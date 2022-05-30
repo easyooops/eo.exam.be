@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.easyoops.biz.sample.mapper.SampleMapper">
+    <select id="selectSampleList" resultType="com.easyoops.biz.sample.dto.SampleDTO">
+        select
+            no          as no,
+            title       as title,
+            contents    as contents,
+            createId    as createId,
+            createDt    as createDt,
+            updateId    as updateId,
+            updateDt    as updateDt
+        from sample
+        where 1=1
+        <if test="no != '' and no != null">
+            and no = #{no}
+        </if>
+        <if test="title != '' and title != null">
+            and title = #{title}
+        </if>
+        <if test="contents != '' and contents != null">
+            and contents = #{contents}
+        </if>
+    </select>
+
+    <select id="selectSampleView" resultType="com.easyoops.biz.sample.dto.SampleDTO">
+        select
+            no          as no,
+            title       as title,
+            contents    as contents,
+            createId    as createId,
+            createDt    as createDt,
+            updateId    as updateId,
+            updateDt    as updateDt
+        from sample
+        where no = #{no}
+    </select>
+
+    <insert id="createSample" parameterType="com.easyoops.biz.sample.dto.SampleDTO">
+        insert into sample (title, contents, createId, createDt, updateId, updateDt)
+        values (#{title}, #{contents}, #{createId}, CURRENT_TIMESTAMP(), #{updateId}, CURRENT_TIMESTAMP())
+    </insert>
+
+    <update id="updateSample" parameterType="com.easyoops.biz.sample.dto.SampleDTO">
+        update sample
+        set title=#{title},
+            contents=#{contents},
+            updateId=#{updateId},
+            updateDt=CURRENT_TIMESTAMP()
+        where no = #{no}
+    </update>
+
+    <delete id="deleteSample" parameterType="com.easyoops.biz.sample.dto.SampleDTO">
+        delete from sample
+        where no = #{no}
+    </delete>
+</mapper>
