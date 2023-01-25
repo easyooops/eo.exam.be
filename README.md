@@ -1,3 +1,6 @@
+# eo.exam.be
+EasyOoops Exam Develop Backend
+
 # Standard Spring boot Framework (ver 0.1)
 
 ## ● setup
