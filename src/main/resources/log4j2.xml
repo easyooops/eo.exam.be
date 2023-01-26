@@ -2,13 +2,13 @@
 <Configuration name="easyoops" packages="com.easyoops">
     <Properties>
         <Property name="bizPath">
-            C:\projects\logs\biz\SERVER.BIZ.log
+            logs/biz/SERVER.BIZ.log
         </Property>
         <Property name="httpPath">
-            C:\projects\logs\http\SERVER.HTTP.log
+            logs/http/SERVER.HTTP.log
         </Property>
         <Property name="errPath">
-            C:\projects\logs\error\SERVER.ERR.log
+            logs/error/SERVER.ERR.log
         </Property>
         <Property name="pattern">.%d{yyyyMMddHH}</Property>
     </Properties>
