@@ -2,6 +2,7 @@ package com.easyoops.common.dto;
 
 import com.easyoops.common.enums.ResponseCode;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import java.io.Serializable;
@@ -17,11 +18,10 @@ public class ResponseDTO<T> implements Serializable {
 
 	private Date timestamp = new Date();
 
-    private Integer code;
-
-    private String codeName;
-
-    private String desc;
+    @ApiModelProperty(value = "resultCode", required = true, example = "200")
+    private String resultCode;
+    @ApiModelProperty(value = "resultMsg", required = true, example = "success")
+    private String resultMsg;
 
     private T resultData;
 
@@ -35,8 +35,7 @@ public class ResponseDTO<T> implements Serializable {
     }
 
     private void init(ResponseCode responseCode) {
-        this.code = responseCode.getCode();
-        this.codeName = responseCode.name();
-        this.desc = responseCode.getDescription();
+        this.resultCode = responseCode.getResultCode();
+        this.resultMsg = responseCode.getResultMsg();
     }
 }

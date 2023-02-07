@@ -19,8 +19,6 @@ import java.util.List;
 @EnableSwagger2
 @Configuration
 public class SwaggerConfig {
-	String version = "v1";
-	String title = "swagger api " + version;
 
 	private ApiKey apiKey() {
 		return new ApiKey("access_token", "Authorization", "header");
@@ -37,19 +35,23 @@ public class SwaggerConfig {
 	}
 
 	@Bean
-	public Docket api() {
+	public Docket apiV1() {
+		String version = "v1";
+
 		return new Docket(DocumentationType.SWAGGER_2)
 				.useDefaultResponseMessages(false)
 				.apiInfo(apiInfo(version))
 				.securityContexts(Arrays.asList(securityContext()))
 				.securitySchemes(Arrays.asList(apiKey()))
 				.select()
-				.apis(RequestHandlerSelectors.any())
+				.apis(RequestHandlerSelectors.basePackage("com"))
 				.paths(PathSelectors.any())
 				.build();
 	}
 
 	private ApiInfo apiInfo(String version) {
+		String title = "API " + version;
+
 		return new ApiInfoBuilder()
 				.version(version)
 				.title(title)

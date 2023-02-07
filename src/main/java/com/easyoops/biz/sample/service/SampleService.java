@@ -1,16 +1,16 @@
 package com.easyoops.biz.sample.service;
 
-import com.easyoops.biz.sample.dto.SampleDTO;
 import com.easyoops.biz.sample.entity.SampleEntity;
-import com.easyoops.biz.sample.mapper.SampleMapper;
+import com.easyoops.biz.sample.repository.SampleInterface;
 import com.easyoops.biz.sample.repository.SampleRepository;
-import com.easyoops.common.config.DataSourceConfig;
+import com.easyoops.common.config.AppValueConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,44 +20,90 @@ public class SampleService {
     private static final Logger LOG = LoggerFactory.getLogger("BIZ_LOGGER");
 
     @Autowired
-    private SampleMapper sampleMapper;
+    private AppValueConfig appConfig;
 
     @Autowired
     private SampleRepository sampleRepository;
 
+    // default > .findAll()
     @Transactional(rollbackFor = Exception.class)
-    public List<SampleDTO> selectSampleList(SampleDTO sampleDTO){
-        return sampleMapper.selectSampleList(sampleDTO);
+    public List<SampleEntity> selectSampleList(){
+        LOG.debug("selectSampleList");
+        List<SampleEntity> samples = new ArrayList<>();
+        sampleRepository.findAll().forEach(e -> samples.add(e));
+        return samples;
     }
 
+    // default > .findById()
     @Transactional(rollbackFor = Exception.class)
-    public SampleDTO selectSampleView(String no){
+    public SampleEntity selectSampleView(Integer no){
         LOG.debug("selectSampleView");
-        return sampleMapper.selectSampleView(no);
+        return sampleRepository.findById(no).get();
     }
 
+    // default > .save()
     @Transactional(rollbackFor = Exception.class)
-    public SampleDTO createSample(SampleDTO sampleDTO){
-        sampleDTO.setCreateId("admin");
-        sampleDTO.setUpdateId("admin");
-        sampleMapper.createSample(sampleDTO);
-        return sampleDTO;
+    public SampleEntity createSample(SampleEntity sampleEntity){
+        LOG.debug("createSample");
+        sampleEntity.setCreateId(appConfig.getAppDbWriter());
+        sampleEntity.setUpdateId(appConfig.getAppDbWriter());
+        sampleRepository.save(sampleEntity);
+        return sampleEntity;
     }
 
+    // default > .save() .builder()
     @Transactional(rollbackFor = Exception.class)
-    public SampleDTO updateSample(SampleDTO sampleDTO){
-        sampleDTO.setUpdateId("admin");
-        sampleMapper.updateSample(sampleDTO);
-        return sampleDTO;
+    public SampleEntity updateSample(SampleEntity sampleEntity) {
+        LOG.debug("updateSample");
+        Optional<SampleEntity> e = sampleRepository.findById(sampleEntity.getNo());
+
+        if (e.isPresent()) {
+            sampleRepository.save(
+                    SampleEntity.builder()
+                            .no(sampleEntity.getNo())
+                            .title(sampleEntity.getTitle())
+                            .contents(sampleEntity.getContents())
+                            .updateId(appConfig.getAppDbWriter())
+                    .build());
+        }
+        return null;
     }
 
+    // default > .deleteById()
     @Transactional(rollbackFor = Exception.class)
-    public Boolean deleteSample(String no){
-        return sampleMapper.deleteSample(no) == 1 ?
-                Boolean.TRUE : Boolean.FALSE;
+    public SampleEntity deleteSample(Integer no) {
+        LOG.debug("deleteSample");
+        sampleRepository.deleteById(no);
+        return null;
     }
 
-    public SampleEntity findByNo(String no) {
-        return sampleRepository.findByNo(no);
+    // queryMethod > .findByTitle()
+    @Transactional(rollbackFor = Exception.class)
+    public List<SampleEntity> searchTitle(String keyword) {
+        LOG.debug("searchTitle");
+        return sampleRepository.findByTitle(keyword);
+    }
+
+    // queryMethod > .findByContents()
+    @Transactional(rollbackFor = Exception.class)
+    public List<SampleEntity> searchContents(String keyword) {
+        LOG.debug("searchContents");
+        return sampleRepository.findByContents(keyword);
+    }
+
+    // queryMethod > .findByTitleLike()
+    @Transactional(rollbackFor = Exception.class)
+    public List<SampleEntity> searchLikeTitle(String keyword) {
+        LOG.debug("searchLikeTitle");
+        return sampleRepository.findByTitleLike(keyword);
+    }
+
+    // nativeQuery > .selectSampleSearch()
+    @Transactional(rollbackFor = Exception.class)
+    public List<SampleInterface> selectSampleSearch(String keyword) {
+        LOG.debug("searchSample");
+        List<SampleInterface> samples = new ArrayList<>();
+        sampleRepository.selectSampleSearch(keyword).forEach(e -> samples.add(e));
+        return samples;
     }
 }

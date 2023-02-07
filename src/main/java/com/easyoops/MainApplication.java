@@ -8,13 +8,13 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 
 @Slf4j
 @SpringBootApplication
-public class EasyoopsApplication extends SpringBootServletInitializer {
+public class MainApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EasyoopsApplication.class, args);
+		SpringApplication.run(MainApplication.class, args);
 	}
 
 	@Override protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-		return builder.sources(EasyoopsApplication.class);
+		return builder.sources(MainApplication.class);
 	}
 }
