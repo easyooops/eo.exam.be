@@ -4,6 +4,7 @@ import com.easyoops.biz.sample.entity.SampleEntity;
 import com.easyoops.biz.sample.repository.SampleInterface;
 import com.easyoops.biz.sample.repository.SampleRepository;
 import com.easyoops.common.config.AppValueConfig;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +16,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class SampleService {
 
     private static final Logger LOG = LoggerFactory.getLogger("BIZ_LOGGER");
 
-    @Autowired
     private AppValueConfig appConfig;
-
-    @Autowired
     private SampleRepository sampleRepository;
 
     // default > .findAll()

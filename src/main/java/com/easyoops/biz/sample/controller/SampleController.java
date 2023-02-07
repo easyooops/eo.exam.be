@@ -8,6 +8,7 @@ import com.easyoops.common.enums.ResponseCode;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +19,10 @@ import java.util.List;
 @Validated
 @Api(value = "Sample API")
 @RestController
+@AllArgsConstructor
 @RequestMapping("/api/v1/sample")
 public class SampleController {
 
-    @Autowired
     private SampleService sampleService;
 
     @GetMapping("/")

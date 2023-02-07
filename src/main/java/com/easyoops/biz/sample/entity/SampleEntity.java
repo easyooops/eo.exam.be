@@ -46,8 +46,4 @@ public class SampleEntity {
     @Column(name = "updateDt", nullable = false)
     private LocalDateTime updateDt;
 
-    @ApiModelProperty(value = "keyword", example = "keword is ...")
-    @Column(name = "keyword", length = 256)
-    private String keyword;
-
 }
