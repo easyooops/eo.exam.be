@@ -18,7 +18,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/except");
     }
 
-//     CORS
+    // CORS
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
@@ -29,6 +29,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
                         RequestMethod.DELETE.name(),
                         RequestMethod.OPTIONS.name())
                 .allowedHeaders("*").maxAge(3600);
-//                .allowCredentials(true);
+                // .allowCredentials(true);
     }
 }

@@ -13,9 +13,9 @@ public class GlobalAspect {
 
     private static final Logger LOG = LoggerFactory.getLogger("BIZ_LOGGER");
 
-    @Before("execution(* com.easyoops.biz.sample.service.SampleService.select*(..)) "
-            + "|| execution(* com.easyoops.biz.sample.service.SampleService.create*(..))"
-            + "|| execution(* com.easyoops.biz.sample.service.SampleService.update*(..))"
+    @Before("execution(* com.*.biz.sample.service.SampleService.select*(..)) "
+            + "|| execution(* com.*.biz.sample.service.SampleService.create*(..))"
+            + "|| execution(* com.*.biz.sample.service.SampleService.update*(..))"
     )
     public void sampleAspect(JoinPoint joinPoint) {
         // TODO: 2022-05-30  

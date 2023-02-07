@@ -16,18 +16,20 @@ public class ControllerExceptionAdvice {
 
 	private static final Logger LOG = LoggerFactory.getLogger(DataSourceConfig.class);
 
-//	@ResponseStatus(HttpStatus.OK)
-//	@ExceptionHandler(RuntimeException.class)
-//	public ResponseDTO<String> handleRuntimeExceptionBase(WebRequest request, RuntimeException exception) {
-//
-//		LOG.error(exception.getMessage());
-//		return new ResponseDTO<>(ResponseCode.SERVER_ERROR, exception.getMessage());
-//	}
-	
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	@ExceptionHandler(RuntimeException.class)
+	public ResponseDTO<String> handleRuntimeExceptionBase(RuntimeException exception) {
+		LOG.error(exception.getMessage());
+		return new ResponseDTO<>(ResponseCode.SERVER_ERROR, exception.getMessage());
+	}
+
+	@ExceptionHandler(IllegalArgumentException.class)
+	public ResponseDTO<String> handleIllegalArgument(IllegalArgumentException exception) {
+		LOG.error(exception.getMessage());
+		return new ResponseDTO<>(ResponseCode.PARAM_INVALID, exception.getMessage());
+	}
+
 	@ExceptionHandler(Exception.class)
-	public ResponseDTO<String> handleException(WebRequest request, Exception exception) {
-		//exception.printStackTrace();
+	public ResponseDTO<String> handleException(Exception exception) {
 		LOG.error(exception.getMessage());
 		return new ResponseDTO<>(ResponseCode.SERVER_ERROR, exception.getMessage());
 	}

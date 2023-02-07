@@ -4,7 +4,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
 @Data
@@ -13,10 +12,8 @@ public class SampleDTO {
 
     @ApiModelProperty(value = "no", required = true, example = "1")
     private String no;
-
     @ApiModelProperty(value = "title", required = true, example = "title is ...")
     private String title;
-
     @ApiModelProperty(value = "contents", required = false, example = "contents is ...")
     private String contents;
 

@@ -4,18 +4,19 @@ import lombok.Getter;
 
 @Getter
 public enum ResponseCode {
-	OK(200, "OK"),
-	BAD_REQUEST(400, "badRequest"),
-	NOT_AUTHRORIZATION(401, "noAuthrorization"),
-	ACCESS_DENY(403, "accessDeny"),
-	NOT_FOUND(404, "notFound"),
-	SERVER_ERROR(500, "internalServerError");
+	OK("200", "success"),
+	PARAM_INVALID("400", "Bad Request, parameter is invalid"),
+	AUTH_INVALID("401", "Unauthorized, authorization header is invalid"),
+	NO_ACCESS("403", "Forbidden, no access"),
+	NOT_FOUND("404", "Not Found, does not exist"),
+	TOO_MANY_REQUEST("429", "Too Many Requests"),
+	SERVER_ERROR("500", "Internal Server Error");
 
-	private final int code;
-	private final String description;
+	private final String resultCode;
+	private final String resultMsg;
 
-	ResponseCode(int code, String description) {
-		this.code = code;
-		this.description = description;
+	ResponseCode(String code, String desc) {
+		this.resultCode = code;
+		this.resultMsg = desc;
 	}
 }
