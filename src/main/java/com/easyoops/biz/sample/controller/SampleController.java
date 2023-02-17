@@ -3,12 +3,15 @@ package com.easyoops.biz.sample.controller;
 import com.easyoops.biz.sample.entity.SampleEntity;
 import com.easyoops.biz.sample.repository.SampleInterface;
 import com.easyoops.biz.sample.service.SampleService;
+import com.easyoops.common.config.AppValueConfig;
 import com.easyoops.common.dto.ResponseDTO;
 import com.easyoops.common.enums.ResponseCode;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +25,8 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/api/v1/sample")
 public class SampleController {
+
+    private static final Logger LOG = LoggerFactory.getLogger("BIZ_LOGGER");
 
     private SampleService sampleService;
 
