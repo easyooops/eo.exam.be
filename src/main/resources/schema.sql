@@ -1,11 +1,37 @@
 drop table if exists sample;
-create table sample (
-    no	INT(11) unsigned auto_increment comment '번호' primary key,
-    title	VARCHAR(256) not null comment '제목',
-    contents	VARCHAR(1024) null comment '내용',
-    create_dt	DATETIME not null comment '생성일',
-    create_id	VARCHAR(10) not null comment '생성자 ID',
-    update_dt	DATETIME not null comment '수정일',
-    update_id	VARCHAR(10) not null comment '수정자 ID'
+create table sample
+(
+    no        INT(11) unsigned auto_increment comment '번호' primary key,
+    title     VARCHAR(256)  not null comment '제목',
+    contents  VARCHAR(1024) null comment '내용',
+    create_dt DATETIME      not null comment '생성일',
+    create_id VARCHAR(10)   not null comment '생성자 ID',
+    update_dt DATETIME      not null comment '수정일',
+    update_id VARCHAR(10)   not null comment '수정자 ID'
 ) comment 'Sample Table';
-alter table sample auto_increment=1000000001;
+alter table sample
+    auto_increment = 1000000001;
+
+drop table if exists member;
+create table member
+(
+    id              INT(10) unsigned auto_increment comment '10자리 사용자 고유 식별 번호 ID' primary key,
+    email_id        VARCHAR(100) not null comment '사용자 로그인 Email ID',
+    member_name     VARCHAR(100) null comment '사용자 이름',
+    member_password VARCHAR(256) null comment '사용자 비밀번호',
+    last_login_date DATETIME     null comment '마지막 접속일',
+    create_id       VARCHAR(10)  not null comment '생성자 ID',
+    create_date     DATETIME     not null comment '생성일',
+    update_id       VARCHAR(10)  not null comment '수정자 ID',
+    update_date     DATETIME     not null comment '수정일'
+) comment 'ExamOoops Member Table';
+alter table member
+    auto_increment = 1000000001;
+
+drop table if exists member_role;
+create table member_role
+(
+    id        INT(10) unsigned auto_increment comment 'member role ID' primary key,
+    member_id INT(10)     not null comment '10자리 사용자 고유 식별 번호 ID' primary key,
+    role      VARCHAR(10) not null comment '권한'
+) comment 'ExamOoops Member Role Relation Table';

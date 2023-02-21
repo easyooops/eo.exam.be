@@ -100,8 +100,6 @@ public class SampleService {
     @Transactional(rollbackFor = Exception.class)
     public List<SampleInterface> selectSampleSearch(String keyword) {
         LOG.debug("searchSample");
-        List<SampleInterface> samples = new ArrayList<>();
-        sampleRepository.selectSampleSearch(keyword).forEach(e -> samples.add(e));
-        return samples;
+        return new ArrayList<>(sampleRepository.selectSampleSearch(keyword));
     }
 }
