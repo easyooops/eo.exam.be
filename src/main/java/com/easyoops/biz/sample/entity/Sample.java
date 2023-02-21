@@ -17,8 +17,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @DynamicUpdate
-@Entity(name = "sample")
-public class SampleEntity {
+@Entity
+public class Sample {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "no", nullable = false)

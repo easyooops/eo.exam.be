@@ -1,6 +1,6 @@
 package com.easyoops;
 
-import com.easyoops.biz.sample.entity.SampleEntity;
+import com.easyoops.biz.sample.entity.Sample;
 import com.easyoops.biz.sample.service.SampleService;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -26,10 +26,10 @@ class MainApplicationTests {
 	@Test
 	void contextLoads() {
 		LOG.info("test start");
-		SampleEntity sampleEntity = sampleService.selectSampleView(1);
+		Sample sample = sampleService.selectSampleView(1);
 
-		LOG.info("no 1 > " + sampleEntity.getNo());
-		LOG.info("title 1 > " + sampleEntity.getTitle());
+		LOG.info("no 1 > " + sample.getNo());
+		LOG.info("title 1 > " + sample.getTitle());
 	}
 
 }

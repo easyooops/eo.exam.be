@@ -3,10 +3,12 @@ package com.easyoops.common.config;
 import com.easyoops.common.filter.JwtAuthenticationFilter;
 import com.easyoops.ext.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,6 +35,7 @@ public class SecurityConfig {
                 .antMatchers("/members/login").permitAll()
                 // USER 권한이 있어야 요청 허용
                 .antMatchers("/members/test").hasRole("USER")
+                .antMatchers("/error").permitAll()
                 // 이외 모든 요청에 대한 인증 필요
                 .anyRequest().authenticated()
                 .and()
@@ -44,5 +47,19 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
+
+    // SecurityFilterChain 이전에 실행 되어 인증 절차를 생략 하고자 하는 경로 명시
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        // h2 db console, swagger ui console
+        // static resource (css, js, images, webjars, favicon)
+        // 접근 filter 제외
+        return web -> web.ignoring()
+                .antMatchers("/swagger-ui/**")
+                .antMatchers("/swagger-resources/**")
+                .antMatchers("/v2/api-docs/**")
+                .requestMatchers(PathRequest.toH2Console())
+                .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 }
