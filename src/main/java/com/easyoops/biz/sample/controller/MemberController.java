@@ -1,14 +1,17 @@
 package com.easyoops.biz.sample.controller;
 
+import com.easyoops.biz.sample.dto.MemberDto;
 import com.easyoops.biz.sample.dto.MemberLoginRequestDto;
 import com.easyoops.biz.sample.dto.TokenInfo;
+import com.easyoops.biz.sample.entity.Member;
 import com.easyoops.biz.sample.service.MemberService;
+import com.easyoops.common.dto.ResponseDTO;
+import com.easyoops.common.enums.ResponseCode;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -18,9 +21,21 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("/login")
-    public TokenInfo login(@RequestBody MemberLoginRequestDto memberLoginRequestDto) {
-        String emailId = memberLoginRequestDto.getEmailId();
-        String password = memberLoginRequestDto.getPassword();
-        return memberService.login(emailId, password);
+    public ResponseDTO<TokenInfo> login(@RequestBody MemberLoginRequestDto memberLoginRequestDto) {
+        return new ResponseDTO<>(ResponseCode.OK, memberService.login(memberLoginRequestDto));
     }
+
+    @GetMapping("/{id}")
+    @ApiOperation(value = "맴버 정보 조회")
+    public ResponseDTO<MemberDto> getMemberById(@ApiParam(value = "id", required = true, example = "1000000001") @PathVariable int id) throws Exception {
+        Member member = memberService.getMemberById(id);
+        return new ResponseDTO<>(ResponseCode.OK, MemberDto.builder()
+                .id(member.getId())
+                .emailId(member.getEmailId())
+                .memberName(member.getMemberName())
+                .roleId(member.getRole().getId())
+                .build());
+    }
+
+
 }

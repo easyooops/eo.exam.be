@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
@@ -18,18 +19,24 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class MainApplicationTests {
 
-	private static final Logger LOG = LoggerFactory.getLogger(MainApplicationTests.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MainApplicationTests.class);
 
-	@Autowired
-	SampleService sampleService;
+    @Autowired
+    SampleService sampleService;
 
-	@Test
-	void contextLoads() {
-		LOG.info("test start");
-		Sample sample = sampleService.selectSampleView(1);
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
-		LOG.info("no 1 > " + sample.getNo());
-		LOG.info("title 1 > " + sample.getTitle());
-	}
+    @Test
+    void contextLoads() {
+        LOG.info("test start");
+        Sample sample = sampleService.selectSampleView(1000000001);
+
+        LOG.info("no 1 > " + sample.getNo());
+        LOG.info("title 1 > " + sample.getTitle());
+
+        String encode = passwordEncoder.encode("1234");
+        LOG.info("encode > " + encode);
+    }
 
 }

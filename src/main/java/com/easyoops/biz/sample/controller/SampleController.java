@@ -3,6 +3,7 @@ package com.easyoops.biz.sample.controller;
 import com.easyoops.biz.sample.entity.Sample;
 import com.easyoops.biz.sample.repository.SampleInterface;
 import com.easyoops.biz.sample.service.SampleService;
+import com.easyoops.common.config.AppValueConfig;
 import com.easyoops.common.dto.ResponseDTO;
 import com.easyoops.common.enums.ResponseCode;
 import io.swagger.annotations.Api;
@@ -21,11 +22,12 @@ import java.util.List;
 @Api(value = "Sample API")
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/v1/sample")
+@RequestMapping("${app.api.v1.path}/samples")
 public class SampleController {
 
     private static final Logger LOG = LoggerFactory.getLogger("BIZ_LOGGER");
 
+    private AppValueConfig appConfig;
     private SampleService sampleService;
 
     @GetMapping("/")

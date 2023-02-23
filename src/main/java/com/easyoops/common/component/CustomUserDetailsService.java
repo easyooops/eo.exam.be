@@ -1,4 +1,4 @@
-package com.easyoops.biz.sample.service;
+package com.easyoops.common.component;
 
 import com.easyoops.biz.sample.entity.Member;
 import com.easyoops.biz.sample.repository.MemberRepository;
@@ -7,15 +7,17 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+import java.util.Arrays;
+
+//@Service
+@Component
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
-    private final PasswordEncoder passwordEncoder;
+//    private final PasswordEncoder passwordEncoder;
 
     // AuthenticationManager.authenticate() 매서드가 실행될 때 호출
     @Override
@@ -30,7 +32,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         return User.builder()
                 .username(member.getUsername())
                 .password(member.getPassword())
-                .roles(member.getRoles().toArray(new String[0]))
+                .roles(Arrays.asList(member.getRole().getId()).toArray(new String[0]))
                 .build();
     }
 }

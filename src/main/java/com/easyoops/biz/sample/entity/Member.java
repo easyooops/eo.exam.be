@@ -11,11 +11,10 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @Builder
@@ -28,6 +27,7 @@ public class Member implements UserDetails {
     @Column(updatable = false, nullable = false)
     private Integer id;
 
+    @Email
     @Column(nullable = false, unique = true, length = 100)
     private String emailId;
 
@@ -37,12 +37,11 @@ public class Member implements UserDetails {
     @Column(nullable = false, length = 100)
     private String memberPassword;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @Builder.Default
-    private List<String> roles = new ArrayList<>();
-
     @Column(nullable = false)
     private LocalDateTime lastLoginDate;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    private Role role;
 
     @Column(length = 10, updatable = false)
     private String createId;
@@ -60,9 +59,10 @@ public class Member implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream()
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+        return Arrays.asList(new SimpleGrantedAuthority(role.getId()));
+//                roles.stream()
+//                .map(SimpleGrantedAuthority::new)
+//                .collect(Collectors.toList());
     }
 
     @Override

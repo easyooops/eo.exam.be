@@ -1,5 +1,6 @@
 package com.easyoops.biz.sample.dto;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +10,10 @@ import lombok.Data;
 @AllArgsConstructor
 public class TokenInfo {
 
+    @ApiModelProperty(value = "grantType", example = "Bearer")
     private String grantType;
+    @ApiModelProperty(value = "accessToken", example = "eyJ∙∙.eyJz∙∙._U4Bhy∙∙")
     private String accessToken;
+    @ApiModelProperty(value = "refreshToken", example = "eyJ∙∙.eyJl∙∙.WZROme∙∙")
     private String refreshToken;
 }

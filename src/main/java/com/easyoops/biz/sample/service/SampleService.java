@@ -25,7 +25,7 @@ public class SampleService {
 
     // default > .findAll()
     @Transactional(rollbackFor = Exception.class)
-    public List<Sample> selectSampleList(){
+    public List<Sample> selectSampleList() {
         LOG.debug("selectSampleList");
         List<Sample> samples = new ArrayList<>();
         sampleRepository.findAll().forEach(e -> samples.add(e));
@@ -34,17 +34,17 @@ public class SampleService {
 
     // default > .findById()
     @Transactional(rollbackFor = Exception.class)
-    public Sample selectSampleView(Integer no){
+    public Sample selectSampleView(Integer no) {
         LOG.debug("selectSampleView");
         return sampleRepository.findById(no).get();
     }
 
     // default > .save()
     @Transactional(rollbackFor = Exception.class)
-    public Sample createSample(Sample sample){
+    public Sample createSample(Sample sample) {
         LOG.debug("createSample");
-        sample.setCreateId(appConfig.getAppDbWriter());
-        sample.setUpdateId(appConfig.getAppDbWriter());
+        sample.setCreateId(appConfig.getAppDbAdmin());
+        sample.setUpdateId(appConfig.getAppDbAdmin());
         sampleRepository.save(sample);
         return sample;
     }
@@ -61,8 +61,8 @@ public class SampleService {
                             .no(sample.getNo())
                             .title(sample.getTitle())
                             .contents(sample.getContents())
-                            .updateId(appConfig.getAppDbWriter())
-                    .build());
+                            .updateId(appConfig.getAppDbAdmin())
+                            .build());
         }
         return null;
     }

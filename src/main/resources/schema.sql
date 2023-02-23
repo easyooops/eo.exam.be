@@ -20,6 +20,7 @@ create table member
     member_name     VARCHAR(100) null comment '사용자 이름',
     member_password VARCHAR(256) null comment '사용자 비밀번호',
     last_login_date DATETIME     null comment '마지막 접속일',
+    role_id         VARCHAR(10)  null comment '유저 권한 Code ID',
     create_id       VARCHAR(10)  not null comment '생성자 ID',
     create_date     DATETIME     not null comment '생성일',
     update_id       VARCHAR(10)  not null comment '수정자 ID',
@@ -28,10 +29,9 @@ create table member
 alter table member
     auto_increment = 1000000001;
 
-drop table if exists member_role;
-create table member_role
+drop table if exists role;
+create table role
 (
-    id        INT(10) unsigned auto_increment comment 'member role ID' primary key,
-    member_id INT(10)     not null comment '10자리 사용자 고유 식별 번호 ID' primary key,
-    role      VARCHAR(10) not null comment '권한'
+    id          VARCHAR(10) comment '유저 권한 Code ID' primary key,
+    description VARCHAR(100) not null comment '권한 설명'
 ) comment 'ExamOoops Member Role Relation Table';
