@@ -1,10 +1,10 @@
-package com.easyoops.biz.sample.controller;
+package com.easyoops.biz.member.controller;
 
-import com.easyoops.biz.sample.dto.MemberDto;
-import com.easyoops.biz.sample.dto.MemberLoginRequestDto;
-import com.easyoops.biz.sample.dto.TokenInfo;
-import com.easyoops.biz.sample.entity.Member;
-import com.easyoops.biz.sample.service.MemberService;
+import com.easyoops.biz.member.dto.MemberDto;
+import com.easyoops.biz.member.dto.MemberLoginRequestDto;
+import com.easyoops.biz.member.dto.TokenInfo;
+import com.easyoops.biz.member.entity.Member;
+import com.easyoops.biz.member.service.MemberService;
 import com.easyoops.common.dto.ResponseDTO;
 import com.easyoops.common.enums.ResponseCode;
 import io.swagger.annotations.ApiOperation;

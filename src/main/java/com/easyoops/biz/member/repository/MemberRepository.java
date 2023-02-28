@@ -1,6 +1,6 @@
-package com.easyoops.biz.sample.repository;
+package com.easyoops.biz.member.repository;
 
-import com.easyoops.biz.sample.entity.Member;
+import com.easyoops.biz.member.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

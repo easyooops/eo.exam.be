@@ -1,7 +1,7 @@
 package com.easyoops.common.component;
 
-import com.easyoops.biz.sample.entity.Member;
-import com.easyoops.biz.sample.repository.MemberRepository;
+import com.easyoops.biz.member.entity.Member;
+import com.easyoops.biz.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

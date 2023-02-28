@@ -1,9 +1,9 @@
-package com.easyoops.biz.sample.service;
+package com.easyoops.biz.member.service;
 
-import com.easyoops.biz.sample.dto.MemberLoginRequestDto;
-import com.easyoops.biz.sample.dto.TokenInfo;
-import com.easyoops.biz.sample.entity.Member;
-import com.easyoops.biz.sample.repository.MemberRepository;
+import com.easyoops.biz.member.dto.MemberLoginRequestDto;
+import com.easyoops.biz.member.dto.TokenInfo;
+import com.easyoops.biz.member.entity.Member;
+import com.easyoops.biz.member.repository.MemberRepository;
 import com.easyoops.ext.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

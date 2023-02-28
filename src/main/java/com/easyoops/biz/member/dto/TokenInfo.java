@@ -1,4 +1,4 @@
-package com.easyoops.biz.sample.dto;
+package com.easyoops.biz.member.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;

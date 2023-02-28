@@ -1,4 +1,4 @@
-package com.easyoops.biz.sample.entity;
+package com.easyoops.biz.member.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

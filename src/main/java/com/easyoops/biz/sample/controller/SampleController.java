@@ -32,13 +32,13 @@ public class SampleController {
 
     @GetMapping("/")
     @ApiOperation(value = "샘플 목록 조회")
-    public ResponseDTO<List<Sample>> selectSempleList() {
+    public ResponseDTO<List<Sample>> selectSampleList() {
         return new ResponseDTO<>(ResponseCode.OK, sampleService.selectSampleList());
     }
 
     @GetMapping("/{no}")
     @ApiOperation(value = "샘플 목록 상세 조회")
-    public ResponseDTO<Sample> selectSempleView(@ApiParam(value = "no", required = true, example = "1") @PathVariable Integer no) {
+    public ResponseDTO<Sample> selectSampleView(@ApiParam(value = "no", required = true, example = "1000000001") @PathVariable Integer no) {
         return new ResponseDTO<>(ResponseCode.OK, sampleService.selectSampleView(no));
     }
 
@@ -56,13 +56,13 @@ public class SampleController {
 
     @DeleteMapping("/{no}")
     @ApiOperation(value = "샘플 삭제")
-    public ResponseDTO<Sample> deleteSample(@ApiParam(value = "no", required = true, example = "1") @PathVariable Integer no) {
+    public ResponseDTO<Sample> deleteSample(@ApiParam(value = "no", required = true, example = "1000000001") @PathVariable Integer no) {
         return new ResponseDTO<>(ResponseCode.OK, sampleService.deleteSample(no));
     }
 
     @GetMapping("/search/{keyword}")
     @ApiOperation(value = "샘플 목록 검색 조회")
-    public ResponseDTO<List<SampleInterface>> selectSampleSearch(@ApiParam(value = "keyword") @PathVariable String keyword) {
+    public ResponseDTO<List<SampleInterface>> selectSampleSearch(@ApiParam(value = "keyword", example = "test") @PathVariable String keyword) {
         return new ResponseDTO<>(ResponseCode.OK, sampleService.selectSampleSearch(keyword));
     }
 }
