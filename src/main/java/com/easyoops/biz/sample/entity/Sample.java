@@ -17,8 +17,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @DynamicUpdate
-@Entity(name = "sample")
-public class SampleEntity {
+@Entity
+public class Sample {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "no", nullable = false)
@@ -45,9 +45,5 @@ public class SampleEntity {
     @UpdateTimestamp
     @Column(name = "updateDt", nullable = false)
     private LocalDateTime updateDt;
-
-    @ApiModelProperty(value = "keyword", example = "keword is ...")
-    @Column(name = "keyword", length = 256)
-    private String keyword;
 
 }

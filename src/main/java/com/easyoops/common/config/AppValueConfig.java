@@ -11,6 +11,6 @@ import javax.validation.Valid;
 @Configuration
 public class AppValueConfig {
 
-    @Value("${app.db.value.writer}")
-    private String appDbWriter;
+    @Value("${app.db.admin}")
+    private String appDbAdmin;
 }

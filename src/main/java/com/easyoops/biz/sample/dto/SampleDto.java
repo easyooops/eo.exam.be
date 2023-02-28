@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Data
 @Valid
-public class SampleDTO {
+public class SampleDto {
 
     @ApiModelProperty(value = "no", required = true, example = "1")
     private String no;
