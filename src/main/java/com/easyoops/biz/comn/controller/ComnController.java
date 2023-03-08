@@ -1,6 +1,7 @@
 package com.easyoops.biz.comn.controller;
 
-import com.easyoops.biz.comn.entity.ComnCode;
+import com.easyoops.biz.comn.dto.ComnCodeDto;
+import com.easyoops.biz.comn.dto.ComnSearchDto;
 import com.easyoops.biz.comn.service.ComnService;
 import com.easyoops.common.dto.ResponseDTO;
 import com.easyoops.common.enums.ResponseCode;
@@ -21,8 +22,8 @@ public class ComnController {
 
     @GetMapping("/comn")
     @ApiOperation(value = "공통 코드 조회")
-    public ResponseDTO<List<ComnCode>> comnCodeList() {
-        return new ResponseDTO<>(ResponseCode.OK, comnService.findComnCodeList());
+    public ResponseDTO<List<ComnCodeDto>> comnCodeList(ComnSearchDto comnSearchDto) {
+        return new ResponseDTO<>(ResponseCode.OK, comnService.findAll(comnSearchDto));
     }
 
 
