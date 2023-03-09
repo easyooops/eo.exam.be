@@ -15,7 +15,7 @@ alter table sample
 drop table if exists member;
 create table member
 (
-     id              INT(10) unsigned auto_increment comment '10자리 사용자 고유 식별 번호 ID' primary key,
+    id              INT(10) unsigned auto_increment comment '10자리 사용자 고유 식별 번호 ID' primary key,
     email_id        VARCHAR(100) not null comment '사용자 로그인 Email ID',
     member_name     VARCHAR(100) null comment '사용자 이름',
     member_password VARCHAR(256) null comment '사용자 비밀번호',
