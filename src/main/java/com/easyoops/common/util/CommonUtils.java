@@ -93,11 +93,11 @@ public class CommonUtils {
             }
         }
 
-        if (!StringUtils.isEmpty(requestIp) && requestIp.indexOf(',') > -1) {
+        if (!StringUtils.hasText(requestIp) && requestIp.indexOf(',') > -1) {
             requestIp = requestIp.split(",")[0].trim();
         }
 
-        if (StringUtils.isEmpty(requestIp)) {
+        if (StringUtils.hasText(requestIp)) {
             requestIp = request.getRemoteAddr();
         }
 
