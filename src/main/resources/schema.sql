@@ -35,3 +35,51 @@ create table role
     id          VARCHAR(10) comment '유저 권한 Code ID' primary key,
     description VARCHAR(100) not null comment '권한 설명'
 ) comment 'ExamOoops Member Role Relation Table';
+
+drop table if exists exam;
+create table exam
+(
+    exam_no         INT(10) unsigned auto_increment comment '시험번호' primary key,
+    pub_exam_no     VARCHAR(20) not null comment '발행시험번호',
+    exam_open_yn    VARCHAR(1) not null default 'N' comment '공개유무',
+    exam_reg_tp     VARCHAR(10) not null comment '등록유형',
+    exam_rnd_yn     VARCHAR(1) not null default 'N' comment '랜덤유무',
+    dump_file       VARCHAR(500) null comment '첨부파일',
+    qst_cnt         INT(5) unsigned not null comment '문항 수',
+    create_id       VARCHAR(10)  not null comment '생성자 ID',
+    create_date     DATETIME     not null comment '생성일',
+    update_id       VARCHAR(10)  not null comment '수정자 ID',
+    update_date     DATETIME     not null comment '수정일'
+) comment 'ExamOoops exam Table';
+alter table exam
+    auto_increment = 1000000001;
+
+drop table if exists question;
+create table question
+(
+    qst_no          INT(10) unsigned not null comment '문제번호',
+    exam_no         INT(10) not null comment '시험번호',
+    qst_cont        varchar(2000) not null comment '문항',
+    create_id       VARCHAR(10)  not null comment '생성자 ID',
+    create_date     DATETIME     not null comment '생성일',
+    update_id       VARCHAR(10)  not null comment '수정자 ID',
+    update_date     DATETIME     not null comment '수정일'
+
+) comment 'ExamOoops question Table';
+
+drop table if exists answer;
+create table answer
+(
+    ans_no          INT(10) not null comment '답안번호',
+    exam_no         INT(10) not null comment '시험번호',
+    qst_no          INT(10) not null comment '문제번호',
+    ans_cont        varchar(2000) not null comment '답안내용',
+    ans_hit_yn      varchar(1) not null default 'N' comment '정답여부',
+    create_id       VARCHAR(10)  not null comment '생성자 ID',
+    create_date     DATETIME     not null comment '생성일',
+    update_id       VARCHAR(10)  not null comment '수정자 ID',
+    update_date     DATETIME     not null comment '수정일'
+) comment 'ExamOoops answer Table';
+
+
+
