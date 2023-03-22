@@ -2,10 +2,7 @@ package com.easyoops.biz.comn.dto;
 
 import lombok.Data;
 
-import javax.validation.Valid;
-
 @Data
-@Valid
 public class ComnCodeDto {
 
     private String comnGrpCd;
