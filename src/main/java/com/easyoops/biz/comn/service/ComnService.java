@@ -22,11 +22,12 @@ public class ComnService {
     public List<ComnCodeDto> findAll() {
         log.debug("selectComnCodeList");
         List<ComnCode> comnCodes = new ArrayList<>();
-        comnRepository.findAll().forEach(c -> comnCodes.add(c));
-        List<ComnCode> resultList = comnCodes.stream().filter(s -> "N".equals(s.getDelYn())).collect(Collectors.toList());
+        comnRepository.findAll().stream()
+                .filter(s -> "N".equals(s.getDelYn())).collect(Collectors.toList())
+                .forEach(c -> comnCodes.add(c));
 
         List<ComnCodeDto> comnCodeDtoList = new ArrayList<>();
-        for (ComnCode comnCode : resultList){
+        for (ComnCode comnCode : comnCodes){
             ComnCodeDto comnCodeDto = new ComnCodeDto();
             comnCodeDto.setComnGrpCd(comnCode.getComnGrpCd());
             comnCodeDto.setComnCd(comnCode.getComnCd());
