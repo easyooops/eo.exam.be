@@ -25,7 +25,7 @@ public class ExamController {
 
     @PostMapping("/exam")
     @ApiOperation(value = "시험 등록")
-    public ResponseDTO<ExamDto> createExam(@RequestBody ExamRequestDto examRequestDto){
+    public ResponseDTO<ExamDto> createExam(@RequestBody ExamRequestDto examRequestDto) throws Exception{
 
         //todo - 권한체크 로직 필요
         examService.createExam(examRequestDto);

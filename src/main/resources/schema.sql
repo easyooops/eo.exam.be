@@ -57,7 +57,7 @@ alter table exam
 drop table if exists question;
 create table question
 (
-    qst_no          INT(10) unsigned not null comment '문제번호',
+    qst_no          INT(10) unsigned auto_increment comment '문제번호' primary key,
     exam_no         INT(10) not null comment '시험번호',
     qst_cont        varchar(2000) not null comment '문항',
     create_id       VARCHAR(10)  not null comment '생성자 ID',
@@ -66,11 +66,13 @@ create table question
     update_date     DATETIME     not null comment '수정일'
 
 ) comment 'ExamOoops question Table';
+alter table question
+    auto_increment = 1000000001;
 
 drop table if exists answer;
 create table answer
 (
-    ans_no          INT(10) not null comment '답안번호',
+    ans_no          INT(10) unsigned auto_increment comment '답안번호' primary key,
     exam_no         INT(10) not null comment '시험번호',
     qst_no          INT(10) not null comment '문제번호',
     ans_cont        varchar(2000) not null comment '답안내용',
@@ -80,6 +82,7 @@ create table answer
     update_id       VARCHAR(10)  not null comment '수정자 ID',
     update_date     DATETIME     not null comment '수정일'
 ) comment 'ExamOoops answer Table';
-
+alter table answer
+    auto_increment = 1000000001;
 
 
