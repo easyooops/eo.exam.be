@@ -21,22 +21,19 @@ public class ComnService {
 
     public List<ComnCodeDto> findAll() {
         log.debug("selectComnCodeList");
-        List<ComnCode> comnCodes = new ArrayList<>();
-        comnRepository.findAll().stream()
-                .filter(s -> "N".equals(s.getDelYn())).collect(Collectors.toList())
-                .forEach(c -> comnCodes.add(c));
-
-        List<ComnCodeDto> comnCodeDtoList = new ArrayList<>();
-        for (ComnCode comnCode : comnCodes){
-            ComnCodeDto comnCodeDto = new ComnCodeDto();
-            comnCodeDto.setComnGrpCd(comnCode.getComnGrpCd());
-            comnCodeDto.setComnCd(comnCode.getComnCd());
-            comnCodeDto.setComnGrpNm(comnCode.getComnGrpNm());
-            comnCodeDto.setComnNm(comnCode.getComnNm());
-            comnCodeDto.setComnOrd(comnCode.getComnOrd());
-            comnCodeDto.setComnDesc(comnCode.getComnDesc());
-            comnCodeDtoList.add(comnCodeDto);
-        }
+        List<ComnCodeDto> comnCodeDtoList = comnRepository.findAll().stream()
+                .filter(s -> "N".equals(s.getDelYn()))
+                .map(comnCode -> {
+                    ComnCodeDto comnCodeDto = new ComnCodeDto();
+                    comnCodeDto.setComnGrpCd(comnCode.getComnGrpCd());
+                    comnCodeDto.setComnCd(comnCode.getComnCd());
+                    comnCodeDto.setComnGrpNm(comnCode.getComnGrpNm());
+                    comnCodeDto.setComnNm(comnCode.getComnNm());
+                    comnCodeDto.setComnOrd(comnCode.getComnOrd());
+                    comnCodeDto.setComnDesc(comnCode.getComnDesc());
+                    return comnCodeDto;
+                })
+                .collect(Collectors.toList());
         return comnCodeDtoList;
     }
     
