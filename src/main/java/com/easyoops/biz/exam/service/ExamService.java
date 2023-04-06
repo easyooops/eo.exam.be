@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StopWatch;
 
+import java.util.Optional;
+
 @Service
 @Transactional(readOnly = true)
 @AllArgsConstructor
@@ -33,8 +35,17 @@ public class ExamService {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
 
+        LOG.debug("createExam parameter -> {} ", examRequestDto);
+
+        Optional<Exam> existExamForPubExamNo = examRepository.findByPubExamNo(examRequestDto.getPub_exam_no());
+        if (existExamForPubExamNo.isPresent()) {
+            LOG.error("already exist pubExamNo : {}, ", examRequestDto);
+            throw new IllegalArgumentException();
+        }
+
+        //question validation
         if(examRequestDto.getQst_list() == null){
-            LOG.error("pubExamNo : {}, qstList is null", examRequestDto.getPub_exam_no());
+            LOG.error("qstList not exist : {}", examRequestDto);
             throw new IllegalArgumentException();
         }
 
@@ -62,7 +73,21 @@ public class ExamService {
 
             questionRepository.save(question);
 
+            //answer validation
+            long answerCnt = qst.getAns_list().size();
+            if(answerCnt == 0){
+                LOG.error("answer is not exist : {}", qst);
+                throw new IllegalArgumentException();
+            }
+
+            long hitCnt = qst.getAns_list().stream().filter(ans -> ans.getAns_hit_yn().equals("Y")).count();
+            if(0 == hitCnt){
+                LOG.error("answer hitYn not exist : {}", qst);
+                throw new IllegalArgumentException();
+            }
+
             qst.getAns_list().parallelStream().forEach(ans -> {
+
                 Answer answer = Answer.builder()
                         .examNo(exam.getExamNo())
                         .qstNo(question.getQstNo())
@@ -77,7 +102,7 @@ public class ExamService {
         });
 
         stopWatch.stop();
-        LOG.warn(stopWatch.toString());
+        LOG.info(stopWatch.toString());
 
         return exam;
     }
