@@ -35,3 +35,19 @@ create table role
     id          VARCHAR(10) comment '유저 권한 Code ID' primary key,
     description VARCHAR(100) not null comment '권한 설명'
 ) comment 'ExamOoops Member Role Relation Table';
+
+drop table if exists comn_code;
+create table comn_code
+(
+    comn_grp_cd     VARCHAR(10) not null comment '그룹 코드',
+    comn_cd         VARCHAR(10) not null comment '코드',
+    comn_grp_nm     VARCHAR(50) not null comment '그룹 코드명',
+    comn_nm         VARCHAR(50) not null comment '코드명',
+    comn_ord        VARCHAR(3) not null comment '정렬 순서',
+    comn_desc       VARCHAR(256) not null comment '설명',
+    del_yn          VARCHAR(1) not null default 'N' comment '삭제 유무',
+    create_date     DATETIME not null comment '생성일',
+    create_id       VARCHAR(10) not null comment '생성자 ID',
+    update_date     DATETIME not null comment '수정일',
+    update_id       VARCHAR(10) not null comment '수정자 ID'
+) comment 'ExamOoops ExamOoops Common Code Table';
